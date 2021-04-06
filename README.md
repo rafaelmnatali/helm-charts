@@ -4,7 +4,7 @@
 
 [Helm Charts](https://helm.sh/docs/topics/charts/) help you define, install, and upgrade even the most complex Kubernetes application.
 
-This repository is a location where packaged charts can be stored and shared.
+This repository contains an example `Helm Chart` to deploy a [Nginx](https://www.nginx.com) web-server on Kubernetes.
 
 > This repository was designed to support the [Medium Article](https://medium.com/) created to demonstrate how to create and use Helm Charts.
 
@@ -82,7 +82,7 @@ kubectl --namespace my-nginx-chart port-forward $POD_NAME 8080:80
 2. Visit http://127.0.0.1:8080 to use your application
 ```
 
-Using the commands on the NOTES section you should be able to access Nginx home page.
+Using the commands on the `NOTES` section you should be able to access Nginx home page.
 
 ### Uninstalling the Helm Chart
 
@@ -93,3 +93,7 @@ Run the `helm uninstall` command to remove all resources created using Helm from
 Output
 
 `release "my-nginx-chart" uninstalled`
+
+## References
+
+Visit the [Helm Documentation](https://helm.sh/docs/chart_template_guide/getting_started/) for more information and details on how to work with `helm`.
