@@ -38,61 +38,64 @@ Use the `--dry-run` flag from the `helm install` command to simulate an installa
 
 `helm install my-nginx-chart -f my-nginx-chart/values.yaml my-nginx-chart --dry-run`
 
-### Installing the Helm Chart
+### Using this repository
 
-Run the `helm install` command to install Nginx using the Helm Chart.
+#### Add the repository to helm client
 
-`helm install my-nginx-chart -f my-nginx-chart/values.yaml my-nginx-chart`
+Via the `helm repo add [NAME] [URL]` command with any name you would like to use to reference the repository.
+
+`helm repo add my-nginx-chart https://rafaelmnatali.github.io/helm-charts/my-nginx-chart`
+
+Confirm if the repository was added with the `helm repo list` command.
+
+```text
+NAME                    URL                                                                                  
+my-nginx-chart          https://rafaelmnatali.github.io/helm-charts/my-nginx-chart
+```
+
+#### Install the helm chart
+
+Deploy the Nginx chart with the `helm install` command.
+
+`helm install nginx my-nginx-chart`
 
 Output
 
 ```text
-NAME: my-nginx-chart
-LAST DEPLOYED: Tue Apr  6 15:47:39 2021
+NAME: nginx
+LAST DEPLOYED: Wed Apr  7 14:56:51 2021
 NAMESPACE: default
-STATUS: pending-install
+STATUS: deployed
 REVISION: 1
 TEST SUITE: None
-HOOKS:
-MANIFEST:
----
-# Source: my-nginx-chart/templates/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: my-nginx-chart
----
-# Source: my-nginx-chart/templates/pod.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: "my-nginx-chart-pod"
-  namespace: my-nginx-chart
-  labels:
-    app: nginx-app
-spec:
-  containers:
-    - name: nginx
-      image: nginx:1.19.9-alpine
-  restartPolicy: Always
 NOTES:
 1. Get the application URL running with these commands:
-export POD_NAME=$(kubectl get pods --namespace my-nginx-chart -l "app=nginx-app" -o jsonpath="{.items[0].metadata.name}")
-kubectl --namespace my-nginx-chart port-forward $POD_NAME 8080:80
-2. Visit http://127.0.0.1:8080 to use your application
+export POD_NAME=$(kubectl get pods --namespace nginx -l "app=nginx-app" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace nginx port-forward $POD_NAME 8080:80
 ```
 
-Using the commands on the `NOTES` section you should be able to access Nginx home page.
+#### Confirming the installation
 
-### Uninstalling the Helm Chart
-
-Run the `helm uninstall` command to remove all resources created using Helm from Kubernetes.
-
-`helm uninstall my-nginx-chart`
+Confirm the deploy was successfully executed with the `helm list` command.
 
 Output
 
-`release "my-nginx-chart" uninstalled`
+```text
+NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+nginx   default         1               2021-04-07 14:56:51.547384 +0100 WEST   deployed        my-nginx-chart-0.1.0    1.16.0 
+```
+
+#### Uninstalling the helm chart
+
+Uninstall the Helm Chart with the `helm uninstall` command.
+
+`helm uninstall nginx`
+
+Output
+
+```text
+release "nginx" uninstalled
+```
 
 ## References
 
